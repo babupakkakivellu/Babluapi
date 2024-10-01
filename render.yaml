@@ -1,11 +1,12 @@
 version: 1
 services:
   - type: web
-    name: TATA-PLAY-FETCHER # Replace with your desired app name
+    name: TATA-PLAY-FETCHER  # Replace with your desired app name
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: startCommand: python -m api.index
+    startCommand: python -m api.index  # Corrected the start command
+    routes:  # Add routes for the different paths
       - path: /tata/channels
       - path: /tata/hmac
       - path: /jplus/key
