@@ -5,11 +5,11 @@ import os
 app = Flask(__name__)
 
 # Route for Tata Play channels
-@app.route('/tata/channels')
+@app.route('/jcinema')
 def get_tata_channels():
     try:
         response = requests.post(
-            "https://babel-in.xyz/tata/channels",
+            "https://babel-in.xyz/jcinema",
             json={"X-API-Key": "babel-23003cca3ba04020bade44a193"},
             headers={"User-Agent": "Babel/5.0"}
         )
