@@ -9,7 +9,7 @@ app = Flask(__name__)
 def get_tata_channels():
     try:
         response = requests.post(
-            "https://babel-in.xyz/zee5",
+            "https://babel-in.xyz/sliv",
             json={"X-API-Key": "babel-23003cca3ba04020bade44a193"},
             headers={"User-Agent": "Babel/5.0"}
         )
