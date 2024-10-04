@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Route for Tata Play channels
-@app.route('/sun')
+@app.route('/sun', methods=['GET'])
 def get_tata_channels():
     try:
         response = requests.post(
@@ -37,8 +37,6 @@ def get_key():
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))  # Default port 10000 or environment port
     app.run(host='0.0.0.0', port=port)
-    
