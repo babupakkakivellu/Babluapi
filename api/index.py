@@ -17,9 +17,9 @@ def get_tata_channels():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Route for Tata Play channels
+# Route for Tata Play keys
 @app.route('/jckeys', methods=['POST'])
-def get_tata_channels():
+def get_tata_keys():  # Renamed the function
     try:
         # Prepare data for the request
         data = {
@@ -43,8 +43,6 @@ def get_tata_channels():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))  # Default port 10000 or environment port
     app.run(host='0.0.0.0', port=port)
-    
