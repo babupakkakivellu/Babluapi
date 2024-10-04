@@ -17,50 +17,25 @@ def get_tata_channels():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/key', methods=['POST'])
+def get_key():
+    url = 'https://babel-in.xyz/jplus/key'
+    data = {
+        'X-API-Key': 'babel-23003cca3ba04020bade44a193',  # Replace with your actual API key
+        'X-Channel-ID': '558'   # Replace with actual channel ID
+    }
 
-# Route for Tata Play HMAC
-@app.route('/tata/hmac', methods=['GET'])  # Allow GET requests
-def get_tata_hmac():
-    # Get the 'channel_id' from query parameters
-    channel_id = request.args.get("id")
-    if not channel_id:
-        return jsonify({'error': 'Channel ID is required'}), 400
-
-    # Validate if 'channel_id' is a valid integer
-    try:
-        channel_id = int(channel_id)
-    except ValueError:
-        return jsonify({'error': 'Invalid Channel ID format. Must be an integer.'}), 400
-
-    url = 'https://babel-in.xyz/tata/hmac'
-
-    # Set headers for the API request
     headers = {
+        'Content-Type': 'application/json',
         'User-Agent': 'Babel/5.0'
     }
 
-    # Data payload for the request
-    data_payload = {
-        'X-API-Key': "babel-23003cca3ba04020bade44a193X",
-        'X-Channel-ID': str(channel_id),  # Use the dynamic Channel ID from query parameters
-        'X-auth-token': "yDrEFGmOzB8Nrzt8QZDQRgrh0PmA9Ri0",  # Constant Auth Token
-        'X-sub-ID': "1293097877",  # Constant Subscriber ID
-    }
-
     try:
-        # Send POST request with the specified headers and payload
-        response = requests.post(url, headers=headers, json=data_payload)
-        
-        # Check for a successful response
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            return jsonify({'error': f'Error: {response.status_code}', 'message': response.text}), response.status_code
-
-    except requests.exceptions.RequestException as req_err:
-        return jsonify({"error": f"Request error: {req_err}"}), 500
-    except Exception as e:
-        return jsonify({"error": f"Internal server error: {e}"}), 500
+        response = requests.post(url, json=data, headers=headers)
+        response.raise_for_status()  # Raise an error for bad responses
+        return jsonify(response.json())  # Return the JSON response
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
